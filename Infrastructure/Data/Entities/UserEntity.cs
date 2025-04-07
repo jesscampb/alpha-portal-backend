@@ -7,5 +7,6 @@ public class UserEntity : IdentityUser
     public string? ImageFileName { get; set; }
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
+    public string? JobTitle { get; set; }
     public UserAddressEntity? Address { get; set; }
 }
