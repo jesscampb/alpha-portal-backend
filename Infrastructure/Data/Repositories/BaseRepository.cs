@@ -36,7 +36,49 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
+
             return new RepositoryResult { Succeeded = false, StatusCode = 500, ErrorMessage = ex.Message };
         }
     }
+
+    public virtual async Task<RepositoryResult> UpdateAsync(TEntity entity)
+    {
+        if (entity == null)
+            return new RepositoryResult { Succeeded = false, StatusCode = 400 };
+
+        try
+        {
+            _table.Update(entity);
+            await _context.SaveChangesAsync();
+
+            return new RepositoryResult { Succeeded = true, StatusCode = 200 };
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+
+            return new RepositoryResult { Succeeded = false, StatusCode = 500, ErrorMessage = ex.Message };
+        }
+    }
+
+    public virtual async Task<RepositoryResult> DeleteAsync(TEntity entity)
+    {
+        if (entity == null)
+            return new RepositoryResult { Succeeded = false, StatusCode = 400 };
+
+        try
+        {
+            _table.Remove(entity);
+            await _context.SaveChangesAsync();
+
+            return new RepositoryResult { Succeeded = true, StatusCode = 200 };
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+
+            return new RepositoryResult { StatusCode = 500, Succeeded = false, ErrorMessage = ex.Message };
+        }
+    }
+
 }
