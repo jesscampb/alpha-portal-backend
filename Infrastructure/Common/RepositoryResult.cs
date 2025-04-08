@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Data.Repositories;
+﻿namespace Infrastructure.Common;
 
 public class RepositoryResult
 {
