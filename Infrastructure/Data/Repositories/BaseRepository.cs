@@ -32,6 +32,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class
             _table.Add(entity);
             await _context.SaveChangesAsync();
 
+            _cache.Remove(_cacheKey);
             return new RepositoryResult { Succeeded = true, StatusCode = 201 };
         }
         catch (Exception ex)
@@ -52,6 +53,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class
             _table.Update(entity);
             await _context.SaveChangesAsync();
 
+            _cache.Remove(_cacheKey);
             return new RepositoryResult { Succeeded = true, StatusCode = 200 };
         }
         catch (Exception ex)
@@ -72,6 +74,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class
             _table.Remove(entity);
             await _context.SaveChangesAsync();
 
+            _cache.Remove(_cacheKey);
             return new RepositoryResult { Succeeded = true, StatusCode = 200 };
         }
         catch (Exception ex)
