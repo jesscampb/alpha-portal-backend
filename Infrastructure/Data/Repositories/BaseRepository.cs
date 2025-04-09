@@ -3,6 +3,7 @@ using Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics;
+using System.Linq.Expressions;
 
 namespace Infrastructure.Data.Repositories;
 
@@ -83,6 +84,20 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class
 
             return new RepositoryResult { StatusCode = 500, Succeeded = false, ErrorMessage = ex.Message };
         }
+    }
+
+    public virtual async Task<RepositoryResult<TModel>> GetAsync(Expression<Func<TEntity, bool>> filterByExpression, int setCacheTime = 5, 
+        params Expression<Func<TEntity, object>>[] includes)
+    {
+        IQueryable<TEntity> query = _table;
+
+        if (includes != null && includes.Length > 0)
+            foreach (var include in includes)
+                query = query.Include(include);
+
+        var entity = await query.FirstOrDefaultAsync(filterByExpression);
+        if (entity == null)
+            return new RepositoryResult<TModel> { Succeeded = false, StatusCode = 404 };
     }
 
 }
