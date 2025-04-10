@@ -77,18 +77,27 @@ public abstract class BaseRepository<TEntity> where TEntity : class
         }
     }
 
-    public virtual async Task<RepositoryResult<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filterByExpression, 
-        params Expression<Func<TEntity, object>>[] includes)
+    public virtual async Task<OperationResult<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filterByExpression, params Expression<Func<TEntity, object>>[] includes)
     {
-        IQueryable<TEntity> query = _table;
+        try
+        {
+            IQueryable<TEntity> query = _table;
 
-        if (includes != null && includes.Length > 0)
-            foreach (var include in includes)
-                query = query.Include(include);
+            if (includes != null && includes.Length > 0)
+                foreach (var include in includes)
+                    query = query.Include(include);
 
-        var entity = await query.FirstOrDefaultAsync(filterByExpression);
-        if (entity == null)
-            return new RepositoryResult<TEntity> { Succeeded = false, StatusCode = 404 };
+            var entity = await query.FirstOrDefaultAsync(filterByExpression);
+            if (entity == null)
+                return new OperationResult<TEntity> { Succeeded = false, StatusCode = 404 };
+
+            return new OperationResult<TEntity> { Succeeded = true, StatusCode = 200, Result = entity };
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return new OperationResult<TEntity> { Succeeded = false, StatusCode = 500, ErrorMessage = ex.Message };
+        }
     }
 
 }
