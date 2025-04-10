@@ -17,63 +17,63 @@ public abstract class BaseRepository<TEntity> where TEntity : class
         _table = context.Set<TEntity>();
     }
 
-    public virtual async Task<RepositoryResult> AddAsync(TEntity entity)
+    public virtual async Task<OperationResult> AddAsync(TEntity entity)
     {
         if (entity == null)
-            return new RepositoryResult { Succeeded = false, StatusCode = 400 };
+            return new OperationResult { Succeeded = false, StatusCode = 400 };
 
         try
         {
             _table.Add(entity);
             await _context.SaveChangesAsync();
 
-            return new RepositoryResult { Succeeded = true, StatusCode = 201 };
+            return new OperationResult { Succeeded = true, StatusCode = 201 };
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
 
-            return new RepositoryResult { Succeeded = false, StatusCode = 500, ErrorMessage = ex.Message };
+            return new OperationResult { Succeeded = false, StatusCode = 500, ErrorMessage = ex.Message };
         }
     }
 
-    public virtual async Task<RepositoryResult> UpdateAsync(TEntity entity)
+    public virtual async Task<OperationResult> UpdateAsync(TEntity entity)
     {
         if (entity == null)
-            return new RepositoryResult { Succeeded = false, StatusCode = 400 };
+            return new OperationResult { Succeeded = false, StatusCode = 400 };
 
         try
         {
             _table.Update(entity);
             await _context.SaveChangesAsync();
 
-            return new RepositoryResult { Succeeded = true, StatusCode = 200 };
+            return new OperationResult { Succeeded = true, StatusCode = 200 };
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
 
-            return new RepositoryResult { Succeeded = false, StatusCode = 500, ErrorMessage = ex.Message };
+            return new OperationResult { Succeeded = false, StatusCode = 500, ErrorMessage = ex.Message };
         }
     }
 
-    public virtual async Task<RepositoryResult> DeleteAsync(TEntity entity)
+    public virtual async Task<OperationResult> DeleteAsync(TEntity entity)
     {
         if (entity == null)
-            return new RepositoryResult { Succeeded = false, StatusCode = 400 };
+            return new OperationResult { Succeeded = false, StatusCode = 400 };
 
         try
         {
             _table.Remove(entity);
             await _context.SaveChangesAsync();
 
-            return new RepositoryResult { Succeeded = true, StatusCode = 200 };
+            return new OperationResult { Succeeded = true, StatusCode = 200 };
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
 
-            return new RepositoryResult { StatusCode = 500, Succeeded = false, ErrorMessage = ex.Message };
+            return new OperationResult { StatusCode = 500, Succeeded = false, ErrorMessage = ex.Message };
         }
     }
 
