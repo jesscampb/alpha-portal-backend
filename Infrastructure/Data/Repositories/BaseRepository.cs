@@ -11,16 +11,11 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class
 {
     protected readonly AppDbContext _context;
     protected readonly DbSet<TEntity> _table;
-    protected readonly IMemoryCache _cache;
-    protected readonly string _cacheKey;
 
-    protected BaseRepository(AppDbContext context, IMemoryCache cache)
+    protected BaseRepository(AppDbContext context)
     {
         _context = context;
-        _cache = cache;
-
         _table = context.Set<TEntity>();
-        _cacheKey = $"{typeof(TEntity).Name}_All";
     }
 
     public virtual async Task<RepositoryResult> AddAsync(TEntity entity)
@@ -33,7 +28,6 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class
             _table.Add(entity);
             await _context.SaveChangesAsync();
 
-            _cache.Remove(_cacheKey);
             return new RepositoryResult { Succeeded = true, StatusCode = 201 };
         }
         catch (Exception ex)
@@ -54,7 +48,6 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class
             _table.Update(entity);
             await _context.SaveChangesAsync();
 
-            _cache.Remove(_cacheKey);
             return new RepositoryResult { Succeeded = true, StatusCode = 200 };
         }
         catch (Exception ex)
@@ -75,7 +68,6 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class
             _table.Remove(entity);
             await _context.SaveChangesAsync();
 
-            _cache.Remove(_cacheKey);
             return new RepositoryResult { Succeeded = true, StatusCode = 200 };
         }
         catch (Exception ex)
@@ -86,7 +78,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class
         }
     }
 
-    public virtual async Task<RepositoryResult<TModel>> GetAsync(Expression<Func<TEntity, bool>> filterByExpression, int setCacheTime = 5, 
+    public virtual async Task<RepositoryResult<TModel>> GetAsync(Expression<Func<TEntity, bool>> filterByExpression, 
         params Expression<Func<TEntity, object>>[] includes)
     {
         IQueryable<TEntity> query = _table;
