@@ -1,12 +1,13 @@
 ﻿using Infrastructure.Common;
 using Infrastructure.Data.Contexts;
+using Infrastructure.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Data.Repositories;
 
-public abstract class BaseRepository<TEntity> where TEntity : class
+public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
 {
     protected readonly AppDbContext _context;
     protected readonly DbSet<TEntity> _table;
@@ -100,7 +101,7 @@ public abstract class BaseRepository<TEntity> where TEntity : class
         }
     }
 
-    public virtual async Task<OperationResult<IEnumerable<TEntity>>> GetAllAsync(bool orderByDescending = false, Expression<Func<TEntity, object>>? sortByExpression = null, 
+    public virtual async Task<OperationResult<IEnumerable<TEntity>>> GetAllAsync(bool orderByDescending = false, Expression<Func<TEntity, object>>? sortByExpression = null,
         Expression<Func<TEntity, bool>>? filterByExpression = null, params Expression<Func<TEntity, object>>[] includes)
     {
         try
