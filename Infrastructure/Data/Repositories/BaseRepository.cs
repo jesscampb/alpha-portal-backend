@@ -100,4 +100,32 @@ public abstract class BaseRepository<TEntity> where TEntity : class
         }
     }
 
+    public virtual async Task<OperationResult<IEnumerable<TEntity>>> GetAllAsync(bool orderByDescending = false, Expression<Func<TEntity, object>>? sortByExpression = null, 
+        Expression<Func<TEntity, bool>>? filterByExpression = null, params Expression<Func<TEntity, object>>[] includes)
+    {
+        try
+        {
+            IQueryable<TEntity> query = _table;
+
+            if (filterByExpression != null)
+                query = query.Where(filterByExpression);
+
+            if (includes != null && includes.Length > 0)
+                foreach (var include in includes)
+                    query = query.Include(include);
+
+            if (sortByExpression != null)
+                query = orderByDescending ? query.OrderByDescending(sortByExpression) : query.OrderBy(sortByExpression);
+
+            var entities = await query.ToListAsync();
+            return new OperationResult<IEnumerable<TEntity>> { Succeeded = true, StatusCode = 200, Result = entities };
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+
+            return new OperationResult<IEnumerable<TEntity>> { Succeeded = false, StatusCode = 500, ErrorMessage = ex.Message };
+        }
+    }
+
 }
