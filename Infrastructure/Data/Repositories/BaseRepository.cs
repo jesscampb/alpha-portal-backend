@@ -1,13 +1,12 @@
 ﻿using Infrastructure.Common;
 using Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Data.Repositories;
 
-public abstract class BaseRepository<TEntity, TModel> where TEntity : class
+public abstract class BaseRepository<TEntity> where TEntity : class
 {
     protected readonly AppDbContext _context;
     protected readonly DbSet<TEntity> _table;
@@ -78,7 +77,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class
         }
     }
 
-    public virtual async Task<RepositoryResult<TModel>> GetAsync(Expression<Func<TEntity, bool>> filterByExpression, 
+    public virtual async Task<RepositoryResult<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filterByExpression, 
         params Expression<Func<TEntity, object>>[] includes)
     {
         IQueryable<TEntity> query = _table;
@@ -89,7 +88,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class
 
         var entity = await query.FirstOrDefaultAsync(filterByExpression);
         if (entity == null)
-            return new RepositoryResult<TModel> { Succeeded = false, StatusCode = 404 };
+            return new RepositoryResult<TEntity> { Succeeded = false, StatusCode = 404 };
     }
 
 }
