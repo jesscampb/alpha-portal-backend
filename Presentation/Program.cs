@@ -21,6 +21,7 @@ builder.Services.AddScoped<IUserAddressRepository, UserAddressRepository>();
 builder.Services.AddScoped<IStatusRepository, StatusRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientBillingAddressRepository, ClientBillingAddressRepository>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 
 var app = builder.Build();
 
