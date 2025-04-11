@@ -10,5 +10,5 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbCo
     public DbSet<ClientEntity> Clients { get; set; }
     public DbSet<ClientBillingAddressEntity> ClientBillingAddresses { get; set; }
     public DbSet<ProjectEntity> Projects { get; set; }
-    public DbSet<StatusEntity> Statuses { get; set; }
+    public DbSet<ProjectStatusEntity> Statuses { get; set; }
 }
