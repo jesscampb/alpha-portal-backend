@@ -18,5 +18,5 @@ public class ClientEntity
     public ClientAddressEntity Address { get; set; } = null!;
     public string? Reference { get; set; }
     [Required]
-    public bool IsActive { get; set; } = true;
+    public bool IsActive { get; set; } = false;
 }
