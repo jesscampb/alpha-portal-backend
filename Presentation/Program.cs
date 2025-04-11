@@ -19,6 +19,8 @@ builder.Services.AddIdentity<UserEntity, IdentityRole>().AddEntityFrameworkStore
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserAddressRepository, UserAddressRepository>();
 builder.Services.AddScoped<IStatusRepository, StatusRepository>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IClientBillingAddressRepository, ClientBillingAddressRepository>();
 
 var app = builder.Build();
 
