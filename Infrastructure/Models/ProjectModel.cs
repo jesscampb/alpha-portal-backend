@@ -11,5 +11,5 @@ public class ProjectModel
     public DateTime EndDate { get; set; }
     public decimal Budget { get; set; }
     public UserModel User { get; set; } = null!;
-    public StatusModel Status { get; set; } = null!;
+    public ProjectStatusModel Status { get; set; } = null!;
 }
