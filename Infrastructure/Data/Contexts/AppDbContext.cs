@@ -8,7 +8,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbCo
 {
     public DbSet<UserAddressEntity> UserAddresses { get; set; }
     public DbSet<ClientEntity> Clients { get; set; }
-    public DbSet<ClientBillingAddressEntity> ClientBillingAddresses { get; set; }
+    public DbSet<ClientAddressEntity> ClientBillingAddresses { get; set; }
     public DbSet<ProjectEntity> Projects { get; set; }
     public DbSet<ProjectStatusEntity> Statuses { get; set; }
 }

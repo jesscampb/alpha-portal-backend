@@ -2,6 +2,6 @@
 
 namespace Infrastructure.Data.Repositories.Interfaces;
 
-public interface IClientBillingAddressRepository : IBaseRepository<ClientBillingAddressEntity>
+public interface IClientBillingAddressRepository : IBaseRepository<ClientAddressEntity>
 {
 }

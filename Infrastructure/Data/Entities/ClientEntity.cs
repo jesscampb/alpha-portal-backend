@@ -13,9 +13,8 @@ public class ClientEntity
     public string ClientName { get; set; } = null!;
     [Required]
     public string Email { get; set; } = null!;
+    public string? PhoneNumber { get; set; }
     [Required]
-    public string PhoneNumber { get; set; } = null!;
-    [Required]
-    public ClientBillingAddressEntity Address { get; set; } = null!;
+    public ClientAddressEntity Address { get; set; } = null!;
     public string? Reference { get; set; }
 }
