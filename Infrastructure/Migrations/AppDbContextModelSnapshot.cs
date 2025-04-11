@@ -22,7 +22,7 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Infrastructure.Data.Entities.ClientBillingAddressEntity", b =>
+            modelBuilder.Entity("Infrastructure.Data.Entities.ClientAddressEntity", b =>
                 {
                     b.Property<string>("ClientId")
                         .HasColumnType("nvarchar(450)");
@@ -32,9 +32,11 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Street")
+                    b.Property<string>("StreetName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ClientId");
@@ -47,12 +49,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("BillingReference")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ClientName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -61,11 +60,19 @@ namespace Infrastructure.Migrations
                     b.Property<string>("ImageFileName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reference")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientName")
+                        .IsUnique();
 
                     b.ToTable("Clients");
                 });
@@ -75,20 +82,20 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal>("Budget")
+                    b.Property<decimal?>("Budget")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ClientId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("date");
 
                     b.Property<string>("ImageFileName")
@@ -119,7 +126,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("Infrastructure.Data.Entities.StatusEntity", b =>
+            modelBuilder.Entity("Infrastructure.Data.Entities.ProjectStatusEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -129,9 +136,12 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("StatusName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StatusName")
+                        .IsUnique();
 
                     b.ToTable("Statuses");
                 });
@@ -142,12 +152,15 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StreetName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
@@ -367,11 +380,11 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Infrastructure.Data.Entities.ClientBillingAddressEntity", b =>
+            modelBuilder.Entity("Infrastructure.Data.Entities.ClientAddressEntity", b =>
                 {
                     b.HasOne("Infrastructure.Data.Entities.ClientEntity", "Client")
-                        .WithOne("BillingAddress")
-                        .HasForeignKey("Infrastructure.Data.Entities.ClientBillingAddressEntity", "ClientId")
+                        .WithOne("Address")
+                        .HasForeignKey("Infrastructure.Data.Entities.ClientAddressEntity", "ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -386,7 +399,7 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Infrastructure.Data.Entities.StatusEntity", "Status")
+                    b.HasOne("Infrastructure.Data.Entities.ProjectStatusEntity", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -469,7 +482,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Infrastructure.Data.Entities.ClientEntity", b =>
                 {
-                    b.Navigation("BillingAddress")
+                    b.Navigation("Address")
                         .IsRequired();
                 });
 

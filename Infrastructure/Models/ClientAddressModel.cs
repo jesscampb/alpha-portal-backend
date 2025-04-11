@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Models;
 
-public class ClientBillingAddressModel
+public class ClientAddressModel
 {
     public string? Street { get; set; }
     public string? PostalCode { get; set; }

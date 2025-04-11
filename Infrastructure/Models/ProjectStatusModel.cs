@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Models;
 
-public class StatusModel
+public class ProjectStatusModel
 {
     public int Id { get; set; }
     public string StatusName { get; set; } = null!;

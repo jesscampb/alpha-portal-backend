@@ -60,10 +60,11 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ImageFileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClientName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ClientName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BillingReference = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Reference = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,7 +77,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StatusName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    StatusName = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -194,9 +195,9 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StreetName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    StreetName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -214,8 +215,8 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     ClientId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StreetName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -236,14 +237,14 @@ namespace Infrastructure.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ImageFileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProjectName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClientId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartDate = table.Column<DateTime>(type: "date", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "date", nullable: false),
-                    Budget = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "date", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Budget = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    ClientId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StatusId = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    StatusId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -308,6 +309,12 @@ namespace Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Clients_ClientName",
+                table: "Clients",
+                column: "ClientName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Projects_ClientId",
                 table: "Projects",
                 column: "ClientId");
@@ -321,6 +328,12 @@ namespace Infrastructure.Migrations
                 name: "IX_Projects_UserId",
                 table: "Projects",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Statuses_StatusName",
+                table: "Statuses",
+                column: "StatusName",
+                unique: true);
         }
 
         /// <inheritdoc />

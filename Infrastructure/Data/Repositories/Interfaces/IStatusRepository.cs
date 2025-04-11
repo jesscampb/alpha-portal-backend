@@ -2,6 +2,6 @@
 
 namespace Infrastructure.Data.Repositories.Interfaces;
 
-public interface IStatusRepository : IBaseRepository<StatusEntity>
+public interface IStatusRepository : IBaseRepository<ProjectStatusEntity>
 {
 }
