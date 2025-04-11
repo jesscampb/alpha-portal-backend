@@ -18,6 +18,22 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         _table = context.Set<TEntity>();
     }
 
+    public virtual async Task<OperationResult> ExistsAsync(Expression<Func<TEntity, bool>> filterByExpression)
+    {
+        try
+        {
+            var result = await _table.AnyAsync(filterByExpression);
+            return result
+                ? new OperationResult { Succeeded = true, StatusCode = 200 }
+                : new OperationResult { Succeeded = false, StatusCode = 404 };
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return new OperationResult { Succeeded = false, StatusCode = 500, ErrorMessage = ex.Message };
+        }
+    }
+
     public virtual async Task<OperationResult> AddAsync(TEntity entity)
     {
         if (entity == null)
