@@ -7,6 +7,6 @@ public class ClientModel
     public string ClientName { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string PhoneNumber { get; set; } = null!;
-    public ClientBillingAddressModel BillingAddress { get; set; } = null!;
+    public ClientAddressModel BillingAddress { get; set; } = null!;
     public string? BillingReference { get; set; }
 }
