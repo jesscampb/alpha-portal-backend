@@ -6,11 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
 
 namespace Infrastructure.Data.Repositories;
-
-public interface IUserRepository : IBaseRepository<UserEntity>
-{
-    Task<OperationResult> CreateUserAsync(UserEntity entity, string password);
-}
 public class UserRepository(AppDbContext context, UserManager<UserEntity> userManager) : BaseRepository<UserEntity>(context), IUserRepository
 {
     private readonly UserManager<UserEntity> _userManager = userManager;
