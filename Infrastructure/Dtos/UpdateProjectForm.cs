@@ -7,7 +7,7 @@ public class UpdateProjectForm
 {
     [Required]
     public string Id { get; set; } = null!;
-    public string? ImageFileName { get; set; }
+    public string? ExistingImageFileName { get; set; }
     public IFormFile? NewImageFile { get; set; }
     [Required]
     public string ProjectName { get; set; } = null!;
