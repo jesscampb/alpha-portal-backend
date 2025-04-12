@@ -3,7 +3,6 @@ using Infrastructure.Data.Entities;
 using Infrastructure.Data.Repositories.Interfaces;
 
 namespace Infrastructure.Data.Repositories;
-
-public class ClientBillingAddressRepository(AppDbContext context) : BaseRepository<ClientAddressEntity>(context), IClientBillingAddressRepository
+public class ProjectStatusRepository(AppDbContext context) : BaseRepository<ProjectStatusEntity>(context), IProjectStatusRepository
 {
 }
