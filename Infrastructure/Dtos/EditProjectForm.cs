@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace Infrastructure.Models;
+namespace Infrastructure.Dtos;
 
 public class EditProjectForm
 {
@@ -15,7 +15,9 @@ public class EditProjectForm
     public int ClientId { get; set; }
     public string? Description { get; set; }
     [Required]
+    [DataType(DataType.Date)]
     public DateTime StartDate { get; set; }
+    [DataType(DataType.Date)]
     public DateTime? EndDate { get; set; }
     [Required]
     public string UserId { get; set; } = null!;
