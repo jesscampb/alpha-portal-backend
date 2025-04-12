@@ -9,6 +9,6 @@ public class UserModel
     public string Email { get; set; } = null!;
     public string? PhoneNumber { get; set; }
     public string? JobTitle { get; set; }
-    public string? MemberRole { get; set; }
+    public string? Role { get; set; }
     public UserAddressModel? Address { get; set; }
 }
