@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Dtos;
 
-public class EditProjectForm
+public class UpdateProjectForm
 {
     [Required]
     public string Id { get; set; } = null!;
