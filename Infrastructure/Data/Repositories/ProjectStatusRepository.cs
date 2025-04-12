@@ -3,6 +3,6 @@ using Infrastructure.Data.Entities;
 using Infrastructure.Data.Repositories.Interfaces;
 
 namespace Infrastructure.Data.Repositories;
-public class StatusRepository(AppDbContext context) : BaseRepository<ProjectStatusEntity>(context), IStatusRepository
+public class ProjectStatusRepository(AppDbContext context) : BaseRepository<ProjectStatusEntity>(context), IProjectStatusRepository
 {
 }

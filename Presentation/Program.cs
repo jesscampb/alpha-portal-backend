@@ -18,7 +18,7 @@ builder.Services.AddIdentity<UserEntity, IdentityRole>().AddEntityFrameworkStore
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserAddressRepository, UserAddressRepository>();
-builder.Services.AddScoped<IStatusRepository, StatusRepository>();
+builder.Services.AddScoped<IProjectStatusRepository, ProjectStatusRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientAddressRepository, ClientAddressRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
