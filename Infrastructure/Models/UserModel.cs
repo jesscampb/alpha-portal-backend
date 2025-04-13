@@ -10,5 +10,7 @@ public class UserModel
     public string? PhoneNumber { get; set; }
     public string? JobTitle { get; set; }
     public string? Role { get; set; }
-    public UserAddressModel? Address { get; set; }
+    public string? StreetName { get; set; }
+    public string? PostalCode { get; set; }
+    public string? City { get; set; }
 }
