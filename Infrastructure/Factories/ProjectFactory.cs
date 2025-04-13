@@ -32,4 +32,37 @@ public class ProjectFactory
             }
         };
     }
+
+    public static ProjectModel ToModel(ProjectEntity entity)
+    {
+        if (entity == null) return null!;
+
+        return new ProjectModel
+        {
+            Id = entity.Id,
+            ImageFileName = entity.ImageFileName,
+            ProjectName = entity.ProjectName,
+            Description = entity.Description,
+            StartDate = entity.StartDate,
+            EndDate = entity.EndDate,
+            Created = entity.Created,
+            Budget = entity.Budget,
+            Client = new ClientModel
+            {
+                Id = entity.Client.Id,
+                ClientName = entity.Client.ClientName
+            },
+            User = new UserModel
+            {
+                Id = entity.User.Id,
+                FirstName = entity.User.FirstName,
+                LastName = entity.User.LastName
+            },
+            Status = new ProjectStatusModel
+            {
+                Id = entity.Status.Id,
+                StatusName = entity.Status.StatusName
+            }
+        };
+    }
 }

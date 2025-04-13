@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Factories\ProjectFactory.cs~RFc084ef5.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Data\Databases\" />
   </ItemGroup>
 
