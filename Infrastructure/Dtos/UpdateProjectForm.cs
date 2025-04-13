@@ -16,7 +16,7 @@ public class UpdateProjectForm
     public string ProjectName { get; set; } = null!;
 
     [Required]
-    public int ClientId { get; set; }
+    public string ClientId { get; set; } = null!;
 
     [StringLength(1000)]
     public string? Description { get; set; }
