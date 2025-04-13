@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Data\Databases\" />
+    <Folder Include="Factories\" />
   </ItemGroup>
 
   <ItemGroup>
