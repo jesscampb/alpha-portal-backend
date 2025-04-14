@@ -13,9 +13,9 @@ public class ClientEntity
     public string ClientName { get; set; } = null!;
     [Required]
     public string Email { get; set; } = null!;
-    public string? PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; } = null!;
     [Required]
-    public ClientAddressEntity Address { get; set; } = null!;
+    public ClientAddressEntity? Address { get; set; }
     public string? Reference { get; set; }
     [Required]
     public bool IsActive { get; set; } = false;

@@ -10,9 +10,9 @@ public class ClientAddressEntity
     [Required]
     public ClientEntity Client { get; set; } = null!;
     [Required]
-    public string StreetName { get; set; } = null!;
+    public string? StreetName { get; set; }
     [Required]
-    public string PostalCode { get; set; } = null!;
+    public string? PostalCode { get; set; }
     [Required]
-    public string City { get; set; } = null!;
+    public string? City { get; set; }
 }

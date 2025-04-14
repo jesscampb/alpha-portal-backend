@@ -16,7 +16,7 @@ public class ProjectEntity
     [Required]
     public DateTime StartDate { get; set; }
     [Column(TypeName = "date")]
-    public DateTime? EndDate { get; set; }
+    public DateTime EndDate { get; set; }
     public DateTime Created { get; set; } = DateTime.Now;
 
     [Column(TypeName = "decimal(18,2)")]

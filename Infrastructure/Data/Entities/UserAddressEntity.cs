@@ -11,9 +11,9 @@ public class UserAddressEntity
     [Required]
     public UserEntity User { get; set; } = null!;
     [Required]
-    public string StreetName { get; set; } = null!;
+    public string? StreetName { get; set; }
     [Required]
-    public string PostalCode { get; set; } = null!;
+    public string? PostalCode { get; set; }
     [Required]
-    public string City { get; set; } = null!;
+    public string? City { get; set; }
 }
