@@ -50,6 +50,22 @@ public class ClientService(IClientRepository clientRepository)
             return null;
         }
     }
+
+    public async Task<bool> DeleteClientAsync(string id)
+    {
+        try
+        {
+            var entity = await _clientRepository.GetAsync(x => x.Id == id);
+            if (entity == null) return false;
+            await _clientRepository.DeleteAsync(entity);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return false;
+        }
+    }
 }
 
 // C
