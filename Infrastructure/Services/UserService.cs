@@ -1,14 +1,14 @@
 ﻿using Infrastructure.Data.Entities;
-using Infrastructure.Data.Repositories;
 using Infrastructure.Data.Repositories.Interfaces;
 using Infrastructure.Dtos;
 using Infrastructure.Factories;
 using Infrastructure.Models;
+using Infrastructure.Services.Interfaces;
 using System.Diagnostics;
 
 namespace Infrastructure.Services;
 
-public class UserService(IUserRepository userRepository)
+public class UserService(IUserRepository userRepository) : IUserService
 {
     private readonly IUserRepository _userRepository = userRepository;
 
