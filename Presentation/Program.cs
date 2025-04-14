@@ -25,6 +25,7 @@ builder.Services.AddScoped<IClientAddressRepository, ClientAddressRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectStatusRepository, ProjectStatusRepository>();
 
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IProjectStatusService, ProjectStatusService>();
