@@ -33,6 +33,34 @@ public class ProjectFactory
         };
     }
 
+    public static ProjectEntity ToEntity(UpdateProjectForm formData, string? newImageFileName = null)
+    {
+        if (formData == null) return null!;
+
+        return new ProjectEntity
+        {
+            Id = formData.Id,
+            ImageFileName = newImageFileName ?? formData.ExistingImageFileName,
+            ProjectName = formData.ProjectName,
+            Description = formData.Description,
+            StartDate = formData.StartDate,
+            EndDate = formData.EndDate,
+            Budget = formData.Budget,
+            Client = new ClientEntity
+            {
+                Id = formData.ClientId
+            },
+            User = new UserEntity
+            {
+                Id = formData.UserId
+            },
+            Status = new ProjectStatusEntity
+            {
+                Id = formData.ProjectStatusId
+            }
+        };
+    }
+
     public static ProjectModel ToModel(ProjectEntity entity)
     {
         if (entity == null) return null!;
