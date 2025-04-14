@@ -109,9 +109,3 @@ public class ProjectService(IProjectRepository projectRepository)
         }
     }
 }
-
-
-// Create (add project form) *
-// Read (by id * and all projects)
-// Update (update project form) *
-// Delete *
