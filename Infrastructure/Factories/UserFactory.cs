@@ -33,6 +33,7 @@ namespace Infrastructure.Factories
 
             return new UserEntity
             {
+                Id = formData.Id,
                 ImageFileName = newImageFileName ?? formData.ExistingImageFileName,
                 FirstName = formData.FirstName,
                 LastName = formData.LastName,
