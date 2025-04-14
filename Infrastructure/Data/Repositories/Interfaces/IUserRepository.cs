@@ -5,5 +5,5 @@ namespace Infrastructure.Data.Repositories.Interfaces;
 
 public interface IUserRepository : IBaseRepository<UserEntity>
 {
-    Task<OperationResult> CreateUserAsync(UserEntity entity, string password);
+    Task<bool> CreateUserAsync(UserEntity entity, string password);
 }
