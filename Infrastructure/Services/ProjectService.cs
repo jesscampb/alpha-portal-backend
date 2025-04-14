@@ -65,6 +65,25 @@ public class ProjectService(IProjectRepository projectRepository)
             return false;
         }
     }
+
+    public async Task<ProjectModel?> GetProjectByIdAsync(string id)
+    {
+        if (string.IsNullOrEmpty(id)) return null;
+
+        try
+        {
+            var entity = await _projectRepository.GetAsync(x => x.Id == id, i => i.Client, i => i.User, i => i.Status);
+            if (entity == null) return null;
+
+            var model = ProjectFactory.ToModel(entity);
+            return model;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return null;
+        }
+    }
 }
 
 
