@@ -84,10 +84,34 @@ public class ProjectService(IProjectRepository projectRepository)
             return null;
         }
     }
+
+    public async Task<IEnumerable<ProjectModel>> GetAllProjectsAsync()
+    {
+        try
+        {
+            var entities = await _projectRepository.GetAllAsync(
+                orderByDescending: true, 
+                sortByExpression: i => i.Created, 
+                filterByExpression: null, 
+                i => i.Client, 
+                i => i.User, 
+                i => i.Status);
+
+            if (entities == null || entities.Count() == 0) return Enumerable.Empty<ProjectModel>();
+
+            var models = entities.Select(ProjectFactory.ToModel).ToList();
+            return models;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return Enumerable.Empty<ProjectModel>();
+        }
+    }
 }
 
 
 // Create (add project form) *
-// Read (by id and all projects)
+// Read (by id * and all projects)
 // Update (update project form) *
 // Delete *
