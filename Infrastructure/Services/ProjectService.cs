@@ -12,6 +12,8 @@ public class ProjectService(IProjectRepository projectRepository)
 
     public async Task<ProjectModel?> CreateProjectAsync(AddProjectForm formData)
     {
+        if (formData == null) return null;
+
 		try
 		{
 			var entity = ProjectFactory.ToEntity(formData);
@@ -31,6 +33,8 @@ public class ProjectService(IProjectRepository projectRepository)
 
     public async Task<ProjectModel?> UpdateProjectAsync(UpdateProjectForm formData)
     {
+        if (formData == null) return null;
+
         try
         {
             var entity = ProjectFactory.ToEntity(formData);
@@ -38,8 +42,6 @@ public class ProjectService(IProjectRepository projectRepository)
 
             var model = ProjectFactory.ToModel(entity);
             return model;
-
-
         }
         catch (Exception ex)
         {
@@ -50,7 +52,7 @@ public class ProjectService(IProjectRepository projectRepository)
 }
 
 
-// Create (add project form)
+// Create (add project form) *
 // Read (by id and all projects)
-// Update (update project form)
+// Update (update project form) *
 // Delete
