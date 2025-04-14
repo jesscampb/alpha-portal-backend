@@ -2,11 +2,12 @@
 using Infrastructure.Dtos;
 using Infrastructure.Factories;
 using Infrastructure.Models;
+using Infrastructure.Services.Interfaces;
 using System.Diagnostics;
 
 namespace Infrastructure.Services;
 
-public class ProjectService(IProjectRepository projectRepository)
+public class ProjectService(IProjectRepository projectRepository) : IProjectService
 {
     private readonly IProjectRepository _projectRepository = projectRepository;
 
@@ -14,9 +15,9 @@ public class ProjectService(IProjectRepository projectRepository)
     {
         if (formData == null) return null;
 
-		try
-		{
-			var entity = ProjectFactory.ToEntity(formData);
+        try
+        {
+            var entity = ProjectFactory.ToEntity(formData);
             await _projectRepository.AddAsync(entity);
 
             var model = ProjectFactory.ToModel(entity);
@@ -24,8 +25,8 @@ public class ProjectService(IProjectRepository projectRepository)
 
 
         }
-		catch (Exception ex)
-		{
+        catch (Exception ex)
+        {
             Debug.WriteLine(ex.Message);
             return null;
         }
@@ -90,11 +91,11 @@ public class ProjectService(IProjectRepository projectRepository)
         try
         {
             var entities = await _projectRepository.GetAllAsync(
-                orderByDescending: true, 
-                sortByExpression: i => i.Created, 
-                filterByExpression: null, 
-                i => i.Client, 
-                i => i.User, 
+                orderByDescending: true,
+                sortByExpression: i => i.Created,
+                filterByExpression: null,
+                i => i.Client,
+                i => i.User,
                 i => i.Status);
 
             if (entities == null || entities.Count() == 0) return Enumerable.Empty<ProjectModel>();

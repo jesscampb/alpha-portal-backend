@@ -2,6 +2,8 @@ using Infrastructure.Data.Contexts;
 using Infrastructure.Data.Entities;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Data.Repositories.Interfaces;
+using Infrastructure.Services;
+using Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +24,9 @@ builder.Services.AddScoped<IProjectStatusRepository, ProjectStatusRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientAddressRepository, ClientAddressRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IClientService, ClientService>();
 
 var app = builder.Build();
 
