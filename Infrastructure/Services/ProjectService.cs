@@ -28,7 +28,27 @@ public class ProjectService(IProjectRepository projectRepository)
             return null;
         }
     }
+
+    public async Task<ProjectModel?> UpdateProjectAsync(UpdateProjectForm formData)
+    {
+        try
+        {
+            var entity = ProjectFactory.ToEntity(formData);
+            await _projectRepository.UpdateAsync(entity);
+
+            var model = ProjectFactory.ToModel(entity);
+            return model;
+
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return null;
+        }
+    }
 }
+
 
 // Create (add project form)
 // Read (by id and all projects)
