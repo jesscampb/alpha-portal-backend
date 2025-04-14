@@ -7,12 +7,16 @@ public class ClientAddressEntity
 {
     [Key, ForeignKey(nameof(Client))]
     public string ClientId { get; set; } = null!;
+
     [Required]
     public ClientEntity Client { get; set; } = null!;
+
     [Required]
-    public string? StreetName { get; set; }
+    public string StreetName { get; set; } = null!;
+
     [Required]
-    public string? PostalCode { get; set; }
+    public string PostalCode { get; set; } = null!;
+
     [Required]
-    public string? City { get; set; }
+    public string City { get; set; } = null!;
 }
