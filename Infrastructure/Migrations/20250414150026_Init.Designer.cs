@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250411221322_Init")]
+    [Migration("20250414150026_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -44,7 +44,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("ClientId");
 
-                    b.ToTable("ClientBillingAddresses");
+                    b.ToTable("ClientAddresses");
                 });
 
             modelBuilder.Entity("Infrastructure.Data.Entities.ClientEntity", b =>
@@ -67,6 +67,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Reference")
@@ -98,7 +99,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("date");
 
                     b.Property<string>("ImageFileName")
@@ -155,15 +156,12 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StreetName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
