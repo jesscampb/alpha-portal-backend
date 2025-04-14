@@ -1,6 +1,8 @@
 ﻿using Infrastructure.Data.Repositories.Interfaces;
 using Infrastructure.Dtos;
+using Infrastructure.Factories;
 using Infrastructure.Models;
+using System.Diagnostics;
 
 namespace Infrastructure.Services;
 
@@ -8,9 +10,23 @@ public class ProjectService(IProjectRepository projectRepository)
 {
     private readonly IProjectRepository _projectRepository = projectRepository;
 
-    public async Task<ProjectModel> CreateProjectAsync(AddProjectForm formData)
+    public async Task<ProjectModel?> CreateProjectAsync(AddProjectForm formData)
     {
+		try
+		{
+			var entity = ProjectFactory.ToEntity(formData);
+            await _projectRepository.AddAsync(entity);
 
+            var model = ProjectFactory.ToModel(entity);
+            return model;
+
+
+        }
+		catch (Exception ex)
+		{
+            Debug.WriteLine(ex.Message);
+            return null;
+        }
     }
 }
 
