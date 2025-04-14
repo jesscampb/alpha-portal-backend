@@ -98,7 +98,7 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
                 i => i.User,
                 i => i.Status);
 
-            if (entities == null || entities.Count() == 0) return Enumerable.Empty<ProjectModel>();
+            if (entities == null || !entities.Any()) return Enumerable.Empty<ProjectModel>();
 
             var models = entities.Select(ProjectFactory.ToModel).ToList();
             return models;

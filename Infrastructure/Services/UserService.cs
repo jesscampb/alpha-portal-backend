@@ -94,4 +94,26 @@ public class UserService(IUserRepository userRepository)
             return null;
         }
     }
+
+    public async Task<IEnumerable<UserModel>> GetAllUsersAsync()
+    {
+        try
+        {
+            var entities = await _userRepository.GetAllAsync(
+                orderByDescending: false,
+                sortByExpression: i => i.FirstName,
+                filterByExpression: null,
+                i => i.Address);
+
+            if (entities == null || !entities.Any()) return Enumerable.Empty<UserModel>();
+
+            var models = entities.Select(UserFactory.ToModel).ToList();
+            return models;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return Enumerable.Empty<UserModel>();
+        }
+    }
 }

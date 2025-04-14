@@ -96,7 +96,7 @@ public class ClientService(IClientRepository clientRepository) : IClientService
                 filterByExpression: null,
                 i => i.Address);
 
-            if (entities == null || entities.Count() == 0) return Enumerable.Empty<ClientModel>();
+            if (entities == null || !entities.Any()) return Enumerable.Empty<ClientModel>();
 
             var models = entities.Select(ClientFactory.ToModel).ToList();
             return models;
@@ -108,8 +108,3 @@ public class ClientService(IClientRepository clientRepository) : IClientService
         }
     }
 }
-
-// C
-// R1 - RA
-// U
-// D
