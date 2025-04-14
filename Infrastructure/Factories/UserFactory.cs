@@ -26,5 +26,27 @@ namespace Infrastructure.Factories
                 }
             };
         }
+
+        public static UserEntity ToEntity(UpdateUserForm formData, string? newImageFileName = null)
+        {
+            if (formData == null) return null!;
+
+            return new UserEntity
+            {
+                ImageFileName = newImageFileName ?? formData.ExistingImageFileName,
+                FirstName = formData.FirstName,
+                LastName = formData.LastName,
+                Email = formData.Email,
+                PhoneNumber = formData.PhoneNumber,
+                JobTitle = formData.JobTitle,
+                UserName = formData.Email,
+                Address = new UserAddressEntity
+                {
+                    StreetName = formData.StreetName ?? null!,
+                    PostalCode = formData.PostalCode ?? null!,
+                    City = formData.City ?? null!
+                }
+            };
+        }
     }
 }
