@@ -15,4 +15,16 @@ public class ProjectStatusFactory
             StatusName = entity.StatusName
         };
     }
+
+    public static ProjectStatusEntity ToEntity(ProjectStatusModel model)
+    {
+        if (model == null) return null!;
+
+        return new ProjectStatusEntity
+        {
+            Id = model.Id,
+            StatusName = model.StatusName
+        };
+    }
 }
+
