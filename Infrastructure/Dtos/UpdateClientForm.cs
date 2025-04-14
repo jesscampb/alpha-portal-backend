@@ -21,7 +21,7 @@ public class UpdateClientForm
     public string Email { get; set; } = null!;
 
     [RegularExpression(@"^\+46\d{7,11}$")]
-    public string? PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; }
 
     [Required]
     [StringLength(100, MinimumLength = 2)]
