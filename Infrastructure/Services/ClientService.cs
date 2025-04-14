@@ -11,7 +11,7 @@ public class ClientService(IClientRepository clientRepository)
 {
     private readonly IClientRepository _clientRepository = clientRepository;
 
-    public async Task<ClientModel?> CreateProjectAsync(AddClientForm formData)
+    public async Task<ClientModel?> CreateClientAsync(AddClientForm formData)
     {
         if (formData == null) return null;
 
@@ -24,6 +24,25 @@ public class ClientService(IClientRepository clientRepository)
             return model;
 
 
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return null;
+        }
+    }
+
+    public async Task<ClientModel?> UpdateClientAsync(UpdateClientForm formData)
+    {
+        if (formData == null) return null;
+
+        try
+        {
+            var entity = ClientFactory.ToEntity(formData);
+            await _clientRepository.UpdateAsync(entity);
+
+            var model = ClientFactory.ToModel(entity);
+            return model;
         }
         catch (Exception ex)
         {
