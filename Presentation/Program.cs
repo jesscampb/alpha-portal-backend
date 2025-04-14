@@ -20,13 +20,14 @@ builder.Services.AddIdentity<UserEntity, IdentityRole>().AddEntityFrameworkStore
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserAddressRepository, UserAddressRepository>();
-builder.Services.AddScoped<IProjectStatusRepository, ProjectStatusRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientAddressRepository, ClientAddressRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IProjectStatusRepository, ProjectStatusRepository>();
 
-builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IProjectStatusService, ProjectStatusService>();
 
 var app = builder.Build();
 
