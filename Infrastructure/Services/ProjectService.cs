@@ -49,10 +49,26 @@ public class ProjectService(IProjectRepository projectRepository)
             return null;
         }
     }
+
+    public async Task<bool> DeleteProjectAsync(string id)
+    {
+        try
+        {
+            var entity = await _projectRepository.GetAsync(x => x.Id == id);
+            if (entity == null) return false;
+            await _projectRepository.DeleteAsync(entity);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return false;
+        }
+    }
 }
 
 
 // Create (add project form) *
 // Read (by id and all projects)
 // Update (update project form) *
-// Delete
+// Delete *
