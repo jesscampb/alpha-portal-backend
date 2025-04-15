@@ -92,7 +92,7 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
         {
             var entities = await _projectRepository.GetAllAsync(
                 orderByDescending: true,
-                sortByExpression: i => i.Created,
+                sortByExpression: x => x.Created,
                 filterByExpression: null,
                 i => i.Client,
                 i => i.User,
