@@ -9,6 +9,6 @@ namespace Infrastructure.Services.Interfaces
         Task<bool> DeleteProjectAsync(string id);
         Task<IEnumerable<ProjectModel>> GetAllProjectsAsync();
         Task<ProjectModel?> GetProjectByIdAsync(string id);
-        Task<ProjectModel?> UpdateProjectAsync(UpdateProjectForm formData);
+        Task<bool> UpdateProjectAsync(UpdateProjectForm formData);
     }
 }

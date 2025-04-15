@@ -29,22 +29,21 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
         }
     }
 
-    public async Task<ProjectModel?> UpdateProjectAsync(UpdateProjectForm formData)
+    public async Task<bool> UpdateProjectAsync(UpdateProjectForm formData)
     {
-        if (formData == null) return null;
+        if (formData == null) return false;
 
         try
         {
             var entity = ProjectFactory.ToEntity(formData);
             await _projectRepository.UpdateAsync(entity);
 
-            var model = ProjectFactory.ToModel(entity);
-            return model;
+            return true;
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
-            return null;
+            return false;
         }
     }
 
