@@ -47,4 +47,12 @@ public class ClientController(IClientService clientService) : ControllerBase
 
         return result == null ? BadRequest() : Ok(result);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(string id)
+    {
+        var result = await _clientService.DeleteClientAsync(id);
+
+        return result ? Ok(result) : NotFound();
+    }
 }
