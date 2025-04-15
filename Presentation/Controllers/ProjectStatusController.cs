@@ -1,6 +1,4 @@
-﻿using Infrastructure.Services;
-using Infrastructure.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers;
@@ -16,7 +14,7 @@ public class ProjectStatusController(IProjectStatusService projectStatusService)
     {
         var result = await _projectStatusService.GetProjectStatusByIdAsync(id);
 
-        return result == null ? Ok() : NotFound();
+        return result == null ? NotFound() : Ok(result);
     }
 
     [HttpGet]
@@ -24,6 +22,6 @@ public class ProjectStatusController(IProjectStatusService projectStatusService)
     {
         var result = await _projectStatusService.GetAllProjectStatusesAsync();
 
-        return result == null ? Ok() : NotFound();
+        return result == null ? NotFound() : Ok(result);
     }
 }

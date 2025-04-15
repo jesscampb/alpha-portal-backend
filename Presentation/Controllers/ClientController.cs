@@ -6,25 +6,25 @@ namespace Presentation.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProjectController(IProjectService projectService) : ControllerBase
+public class ClientController(IClientService clientService) : ControllerBase
 {
-    private readonly IProjectService _projectService = projectService;
+    private readonly IClientService _clientService = clientService;
 
     [HttpPost]
-    public async Task<IActionResult> Create(AddProjectForm formData)
+    public async Task<IActionResult> Create(AddClientForm formData)
     {
         if (!ModelState.IsValid)
             return BadRequest(formData);
 
-        var result = await _projectService.CreateProjectAsync(formData);
-        
+        var result = await _clientService.CreateClientAsync(formData);
+
         return result == null ? BadRequest() : Ok(result);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(string id)
     {
-        var result = await _projectService.GetProjectByIdAsync(id);
+        var result = await _clientService.GetClientByIdAsync(id);
 
         return result == null ? NotFound() : Ok(result);
     }
@@ -32,18 +32,18 @@ public class ProjectController(IProjectService projectService) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var result = await _projectService.GetAllProjectsAsync();
+        var result = await _clientService.GetAllClientsAsync();
 
         return result == null ? NotFound() : Ok(result);
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update(UpdateProjectForm formData)
+    public async Task<IActionResult> Update(UpdateClientForm formData)
     {
         if (!ModelState.IsValid)
             return BadRequest(formData);
 
-        var result = await _projectService.UpdateProjectAsync(formData);
+        var result = await _clientService.UpdateClientAsync(formData);
 
         return result == null ? BadRequest() : Ok(result);
     }
@@ -51,8 +51,8 @@ public class ProjectController(IProjectService projectService) : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
-        var result = await _projectService.DeleteProjectAsync(id);
+        var result = await _clientService.DeleteClientAsync(id);
 
-        return result ? Ok() : NotFound();
+        return result ? Ok(result) : NotFound();
     }
 }
