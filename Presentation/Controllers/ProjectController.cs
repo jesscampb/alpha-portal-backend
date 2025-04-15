@@ -35,4 +35,15 @@ public class ProjectController(IProjectService projectService) : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var result = await _projectService.GetAllProjectsAsync();
+
+        if (result == null)
+            return NotFound();
+
+        return Ok(result);
+    }
 }
