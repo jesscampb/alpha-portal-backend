@@ -46,4 +46,18 @@ public class ProjectController(IProjectService projectService) : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpPut]
+    public async Task<IActionResult> Update(UpdateProjectForm formData)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(formData);
+
+        var result = await _projectService.UpdateProjectAsync(formData);
+
+        if (result == null)
+            return NotFound();
+
+        return Ok(result);
+    }
 }
