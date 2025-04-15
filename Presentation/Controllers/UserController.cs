@@ -20,4 +20,12 @@ public class UserController(IUserService userService) : ControllerBase
 
         return result == null ? BadRequest() : Ok(result);
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(string id)
+    {
+        var result = await _userService.GetUserByIdAsync(id);
+
+        return result == null ? NotFound() : Ok(result);
+    }
 }
