@@ -20,4 +20,12 @@ public class ClientController(IClientService clientService) : ControllerBase
 
         return result == null ? BadRequest() : Ok(result);
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(string id)
+    {
+        var result = await _clientService.GetClientByIdAsync(id);
+
+        return result == null ? NotFound() : Ok(result);
+    }
 }
