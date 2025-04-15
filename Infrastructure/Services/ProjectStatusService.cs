@@ -14,6 +14,7 @@ public class ProjectStatusService(IProjectStatusRepository projectStatusReposito
         var entities = await _projectStatusRepository.GetAllAsync();
         return entities.Select(ProjectStatusFactory.ToModel).ToList();
     }
+
     public async Task<ProjectStatusModel?> GetProjectStatusByIdAsync(int id)
     {
         var entity = await _projectStatusRepository.GetAsync(x => x.Id == id);
