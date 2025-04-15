@@ -11,24 +11,21 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
 {
     private readonly IProjectRepository _projectRepository = projectRepository;
 
-    public async Task<ProjectModel?> CreateProjectAsync(AddProjectForm formData)
+    public async Task<bool> CreateProjectAsync(AddProjectForm formData)
     {
-        if (formData == null) return null;
+        if (formData == null) return false;
 
         try
         {
             var entity = ProjectFactory.ToEntity(formData);
             await _projectRepository.AddAsync(entity);
 
-            var model = ProjectFactory.ToModel(entity);
-            return model;
-
-
+            return true;
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
-            return null;
+            return false;
         }
     }
 
