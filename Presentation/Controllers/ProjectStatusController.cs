@@ -1,6 +1,4 @@
-﻿using Infrastructure.Services;
-using Infrastructure.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers;

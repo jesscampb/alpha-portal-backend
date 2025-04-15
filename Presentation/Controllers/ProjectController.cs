@@ -1,6 +1,5 @@
 ﻿using Infrastructure.Dtos;
 using Infrastructure.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers;
