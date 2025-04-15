@@ -6,9 +6,17 @@ namespace Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjectStatusController(IProjectService projectService) : ControllerBase
+    public class ProjectStatusController(IProjectStatusService projectStatusService) : ControllerBase
     {
-        private readonly IProjectService _projectService = projectService;
+        private readonly IProjectStatusService _projectStatusService = projectStatusService;
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var result = await _projectStatusService.GetProjectStatusByIdAsync(id);
+
+            return result == null ? Ok() : NotFound();
+        }
 
 
     }
