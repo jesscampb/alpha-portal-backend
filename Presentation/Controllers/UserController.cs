@@ -48,7 +48,7 @@ public class UserController(IUserService userService) : ControllerBase
         return result == null ? BadRequest() : Ok(result);
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
         var result = await _userService.DeleteUserAsync(id);
