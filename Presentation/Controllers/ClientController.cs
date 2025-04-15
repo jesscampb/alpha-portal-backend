@@ -36,4 +36,15 @@ public class ClientController(IClientService clientService) : ControllerBase
 
         return result == null ? NotFound() : Ok(result);
     }
+
+    [HttpPut]
+    public async Task<IActionResult> Update(UpdateClientForm formData)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(formData);
+
+        var result = await _clientService.UpdateClientAsync(formData);
+
+        return result == null ? BadRequest() : Ok(result);
+    }
 }
