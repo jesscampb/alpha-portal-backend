@@ -28,4 +28,12 @@ public class UserController(IUserService userService) : ControllerBase
 
         return result == null ? NotFound() : Ok(result);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var result = await _userService.GetAllUsersAsync();
+
+        return result == null ? NotFound() : Ok(result);
+    }
 }
