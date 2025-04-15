@@ -36,4 +36,15 @@ public class UserController(IUserService userService) : ControllerBase
 
         return result == null ? NotFound() : Ok(result);
     }
+
+    [HttpPut]
+    public async Task<IActionResult> Update(UpdateUserForm formData)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(formData);
+
+        var result = await _userService.UpdateUserAsync(formData);
+
+        return result == null ? BadRequest() : Ok(result);
+    }
 }
