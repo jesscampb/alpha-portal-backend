@@ -60,4 +60,15 @@ public class ProjectController(IProjectService projectService) : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(string id)
+    {
+        var result = await _projectService.DeleteProjectAsync(id);
+
+        if (result == false)
+            return NotFound();
+
+        return Ok(result);
+    }
 }
