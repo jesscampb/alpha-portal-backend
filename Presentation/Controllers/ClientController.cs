@@ -28,4 +28,12 @@ public class ClientController(IClientService clientService) : ControllerBase
 
         return result == null ? NotFound() : Ok(result);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var result = await _clientService.GetAllClientsAsync();
+
+        return result == null ? NotFound() : Ok(result);
+    }
 }
