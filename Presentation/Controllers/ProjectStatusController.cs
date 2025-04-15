@@ -14,7 +14,7 @@ public class ProjectStatusController(IProjectStatusService projectStatusService)
     {
         var result = await _projectStatusService.GetProjectStatusByIdAsync(id);
 
-        return result == null ? Ok() : NotFound();
+        return result == null ? NotFound() : Ok(result);
     }
 
     [HttpGet]
@@ -22,6 +22,6 @@ public class ProjectStatusController(IProjectStatusService projectStatusService)
     {
         var result = await _projectStatusService.GetAllProjectStatusesAsync();
 
-        return result == null ? Ok() : NotFound();
+        return result == null ? NotFound() : Ok(result);
     }
 }

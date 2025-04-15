@@ -18,7 +18,7 @@ public class ProjectController(IProjectService projectService) : ControllerBase
 
         var result = await _projectService.CreateProjectAsync(formData);
         
-        return result == null ? Ok() : BadRequest();
+        return result == null ? BadRequest() : Ok(result);
     }
 
     [HttpGet("{id}")]
@@ -26,7 +26,7 @@ public class ProjectController(IProjectService projectService) : ControllerBase
     {
         var result = await _projectService.GetProjectByIdAsync(id);
 
-        return result == null ? Ok() : NotFound();
+        return result == null ? NotFound() : Ok(result);
     }
 
     [HttpGet]
@@ -34,7 +34,7 @@ public class ProjectController(IProjectService projectService) : ControllerBase
     {
         var result = await _projectService.GetAllProjectsAsync();
 
-        return result == null ? Ok() : NotFound();
+        return result == null ? NotFound() : Ok(result);
     }
 
     [HttpPut]
@@ -45,7 +45,7 @@ public class ProjectController(IProjectService projectService) : ControllerBase
 
         var result = await _projectService.UpdateProjectAsync(formData);
 
-        return result == null ? Ok() : NotFound();
+        return result == null ? BadRequest() : Ok(result);
     }
 
     [HttpDelete("{id}")]

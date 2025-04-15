@@ -18,6 +18,6 @@ public class ClientController(IClientService clientService) : ControllerBase
 
         var result = await _clientService.CreateClientAsync(formData);
 
-        return result == null ? BadRequest() : Ok();
+        return result == null ? BadRequest() : Ok(result);
     }
 }
