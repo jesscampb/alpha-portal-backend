@@ -35,9 +35,12 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
 
         try
         {
-            var entity = ProjectFactory.ToEntity(formData);
-            await _projectRepository.UpdateAsync(entity);
+            var project = await _projectRepository.GetAsync(x => x.Id == formData.Id);
+            if (project == null) return false;
 
+            var entity = ProjectFactory.ToEntity(formData);
+
+            await _projectRepository.UpdateAsync(entity);
             return true;
         }
         catch (Exception ex)
@@ -53,6 +56,7 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
         {
             var entity = await _projectRepository.GetAsync(x => x.Id == id);
             if (entity == null) return false;
+
             await _projectRepository.DeleteAsync(entity);
             return true;
         }
