@@ -53,6 +53,6 @@ public class ProjectController(IProjectService projectService) : ControllerBase
     {
         var result = await _projectService.DeleteProjectAsync(id);
 
-        return result ? Ok() : NotFound();
+        return result ? Ok(result) : NotFound();
     }
 }

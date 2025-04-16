@@ -35,12 +35,12 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
 
         try
         {
-            var project = await _projectRepository.GetAsync(x => x.Id == formData.Id);
-            if (project == null) return false;
+            var projectEntity = await _projectRepository.GetAsync(x => x.Id == formData.Id);
+            if (projectEntity == null) return false;
 
-            var entity = ProjectFactory.ToEntity(formData);
+            /*var entity = */ProjectFactory.ToEntity(formData, projectEntity);
 
-            await _projectRepository.UpdateAsync(entity);
+            await _projectRepository.UpdateAsync(projectEntity);
             return true;
         }
         catch (Exception ex)

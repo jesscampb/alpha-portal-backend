@@ -24,31 +24,22 @@ public class ProjectFactory
         };
     }
 
-    public static ProjectEntity ToEntity(UpdateProjectForm formData, string? newImageFileName = null)
+    public static ProjectEntity ToEntity(UpdateProjectForm formData, ProjectEntity entity, string? newImageFileName = null)
     {
         if (formData == null) return null!;
+        if (entity == null) return null!;
 
-        return new ProjectEntity
-        {
-            ImageFileName = newImageFileName ?? formData.ExistingImageFileName,
-            ProjectName = formData.ProjectName,
-            Description = formData.Description,
-            StartDate = formData.StartDate,
-            EndDate = formData.EndDate,
-            Budget = formData.Budget,
-            Client = new ClientEntity
-            {
-                Id = formData.ClientId
-            },
-            User = new UserEntity
-            {
-                Id = formData.UserId
-            },
-            Status = new ProjectStatusEntity
-            {
-                Id = formData.ProjectStatusId
-            }
-        };
+        entity.ImageFileName = newImageFileName ?? formData.ExistingImageFileName;
+        entity.ProjectName = (formData.ProjectName != entity.ProjectName) ? formData.ProjectName : entity.ProjectName;
+        entity.Description = (formData.Description != entity.Description) ? formData.Description : entity.Description;
+        entity.StartDate = (formData.StartDate != entity.StartDate) ? formData.StartDate : entity.StartDate;
+        entity.EndDate = (formData.EndDate != entity.EndDate) ? formData.EndDate : entity.EndDate;
+        entity.Budget = (formData.Budget != entity.Budget) ? formData.Budget : entity.Budget;
+        entity.ClientId = (formData.ClientId != entity.ClientId) ? formData.ClientId : entity.ClientId;
+        entity.UserId = (formData.UserId != entity.UserId) ? formData.UserId : entity.UserId;
+        entity.StatusId = (formData.ProjectStatusId != entity.StatusId) ? formData.ProjectStatusId : entity.StatusId;
+
+        return entity;
     }
 
     public static ProjectModel ToModel(ProjectEntity entity)
