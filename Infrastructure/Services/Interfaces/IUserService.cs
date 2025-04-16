@@ -9,6 +9,6 @@ namespace Infrastructure.Services.Interfaces
         Task<bool> DeleteUserAsync(string id);
         Task<IEnumerable<UserModel>> GetAllUsersAsync();
         Task<UserModel?> GetUserByIdAsync(string id);
-        Task<UserModel?> UpdateUserAsync(UpdateUserForm formData);
+        Task<bool> UpdateUserAsync(UpdateUserForm formData);
     }
 }

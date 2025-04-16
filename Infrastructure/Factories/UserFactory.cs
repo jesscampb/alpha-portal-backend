@@ -28,27 +28,27 @@ public class UserFactory
         };
     }
 
-    public static UserEntity ToEntity(UpdateUserForm formData, string? newImageFileName = null)
+    public static UserEntity ToEntity(UpdateUserForm formData, UserEntity entity, string? newImageFileName = null)
     {
         if (formData == null) return null!;
+        if (entity == null) return null!;
 
-        return new UserEntity
+        entity.ImageFileName = newImageFileName ?? formData.ExistingImageFileName;
+        entity.FirstName = (formData.FirstName != entity.FirstName)? formData.FirstName : entity.FirstName;
+        entity.LastName = (formData.LastName != entity.LastName) ? formData.LastName : entity.LastName;
+        entity.Email = (formData.Email != entity.Email) ? formData.Email : entity.Email;
+        entity.PhoneNumber = (formData.PhoneNumber != entity.PhoneNumber) ? formData.PhoneNumber : entity.PhoneNumber;
+        entity.JobTitle = (formData.JobTitle != entity.JobTitle) ? formData.JobTitle : entity.JobTitle;
+        entity.UserName = (formData.Email != entity.Email) ? formData.Email : entity.Email;
+
+        if (entity.Address != null)
         {
-            Id = formData.Id,
-            ImageFileName = newImageFileName ?? formData.ExistingImageFileName,
-            FirstName = formData.FirstName,
-            LastName = formData.LastName,
-            Email = formData.Email,
-            PhoneNumber = formData.PhoneNumber,
-            JobTitle = formData.JobTitle,
-            UserName = formData.Email,
-            Address = new UserAddressEntity
-            {
-                StreetName = formData.StreetName ?? String.Empty,
-                PostalCode = formData.PostalCode ?? String.Empty,
-                City = formData.City ?? String.Empty
-            }
-        };
+            entity.Address.StreetName = (formData.StreetName != entity.Address.StreetName) ? formData.StreetName : entity.Address.StreetName;
+            entity.Address.PostalCode = (formData.PostalCode != entity.Address.PostalCode) ? formData.PostalCode : entity.Address.PostalCode;
+            entity.Address.City = (formData.City != entity.Address.City) ? formData.City : entity.Address.City;
+        }
+
+        return entity;
     }
 
     public static UserModel ToModel(UserEntity entity)
