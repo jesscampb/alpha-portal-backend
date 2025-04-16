@@ -30,7 +30,6 @@ public class ProjectFactory
 
         return new ProjectEntity
         {
-            Id = formData.Id,
             ImageFileName = newImageFileName ?? formData.ExistingImageFileName,
             ProjectName = formData.ProjectName,
             Description = formData.Description,
