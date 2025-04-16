@@ -11,43 +11,42 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
 {
     private readonly IProjectRepository _projectRepository = projectRepository;
 
-    public async Task<ProjectModel?> CreateProjectAsync(AddProjectForm formData)
+    public async Task<bool> CreateProjectAsync(AddProjectForm formData)
     {
-        if (formData == null) return null;
+        if (formData == null) return false;
 
         try
         {
             var entity = ProjectFactory.ToEntity(formData);
             await _projectRepository.AddAsync(entity);
 
-            var model = ProjectFactory.ToModel(entity);
-            return model;
-
-
+            return true;
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
-            return null;
+            return false;
         }
     }
 
-    public async Task<ProjectModel?> UpdateProjectAsync(UpdateProjectForm formData)
+    public async Task<bool> UpdateProjectAsync(UpdateProjectForm formData)
     {
-        if (formData == null) return null;
+        if (formData == null) return false;
 
         try
         {
-            var entity = ProjectFactory.ToEntity(formData);
-            await _projectRepository.UpdateAsync(entity);
+            var projectEntity = await _projectRepository.GetAsync(x => x.Id == formData.Id);
+            if (projectEntity == null) return false;
 
-            var model = ProjectFactory.ToModel(entity);
-            return model;
+            /*var entity = */ProjectFactory.ToEntity(formData, projectEntity);
+
+            await _projectRepository.UpdateAsync(projectEntity);
+            return true;
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
-            return null;
+            return false;
         }
     }
 
@@ -57,6 +56,7 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
         {
             var entity = await _projectRepository.GetAsync(x => x.Id == id);
             if (entity == null) return false;
+
             await _projectRepository.DeleteAsync(entity);
             return true;
         }
