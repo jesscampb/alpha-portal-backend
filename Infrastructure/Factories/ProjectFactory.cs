@@ -18,18 +18,21 @@ public class ProjectFactory
             StartDate = formData.StartDate,
             EndDate = formData.EndDate,
             Budget = formData.Budget,
-            Client = new ClientEntity
-            {
-                Id = formData.ClientId
-            },
-            User = new UserEntity
-            {
-                Id = formData.UserId
-            },
-            Status = new ProjectStatusEntity
-            {
-                Id = 1
-            }
+            ClientId = formData.ClientId,
+            //Client = new ClientEntity
+            //{
+            //    Id = formData.ClientId
+            //},
+            UserId = formData.UserId,
+            //User = new UserEntity
+            //{
+            //    Id = formData.UserId
+            //},
+            StatusId = 1, // Default "STARTED"
+            //Status = new ProjectStatusEntity
+            //{
+            //    Id = 1
+            //}
         };
     }
 
