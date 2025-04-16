@@ -26,25 +26,25 @@ public class ClientFactory
         };
     }
 
-    public static ClientEntity ToEntity(UpdateClientForm formData, string? newImageFileName = null)
+    public static ClientEntity ToEntity(UpdateClientForm formData, ClientEntity entity, string? newImageFileName = null)
     {
         if (formData == null) return null!;
+        if (entity == null) return null!;
 
-        return new ClientEntity
+        entity.ImageFileName = newImageFileName ?? formData.ExistingImageFileName;
+        entity.ClientName = (formData.ClientName != entity.ClientName)? formData.ClientName : entity.ClientName;
+        entity.Email = (formData.Email != entity.Email)? formData.Email : entity.Email;
+        entity.PhoneNumber = (formData.PhoneNumber != entity.PhoneNumber)? formData.PhoneNumber : entity.PhoneNumber;
+        entity.Reference = (formData.Reference != entity.Reference)? formData.Reference : entity.Reference;
+
+        if (entity.Address != null)
         {
-            Id = formData.Id,
-            ImageFileName = newImageFileName ?? formData.ExistingImageFileName,
-            ClientName = formData.ClientName,
-            Email = formData.Email,
-            PhoneNumber = formData.PhoneNumber,
-            Reference = formData.Reference,
-            Address = new ClientAddressEntity
-            {
-                StreetName = formData.StreetName,
-                PostalCode = formData.PostalCode,
-                City = formData.City
-            },
-        };
+            entity.Address.StreetName = (formData.StreetName != entity.Address.StreetName) ? formData.StreetName : entity.Address.StreetName;
+            entity.Address.PostalCode = (formData.PostalCode != entity.Address.PostalCode) ? formData.PostalCode : entity.Address.PostalCode;
+            entity.Address.City = (formData.City != entity.Address.City) ? formData.City : entity.Address.City;
+        }
+
+        return entity;
     }
 
     public static ClientModel ToModel(ClientEntity entity)

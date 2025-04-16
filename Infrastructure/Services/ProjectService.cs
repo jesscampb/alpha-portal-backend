@@ -38,7 +38,7 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
             var projectEntity = await _projectRepository.GetAsync(x => x.Id == formData.Id);
             if (projectEntity == null) return false;
 
-            /*var entity = */ProjectFactory.ToEntity(formData, projectEntity);
+            ProjectFactory.ToEntity(formData, projectEntity);
 
             await _projectRepository.UpdateAsync(projectEntity);
             return true;

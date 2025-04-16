@@ -10,6 +10,11 @@ public class UserRepository(AppDbContext context, UserManager<UserEntity> userMa
 
     public async Task<bool> CreateUserAsync(UserEntity entity, string password)
     {
+        entity.Address = new UserAddressEntity
+        {
+            UserId = entity.Id,
+        };
+
         var result = await _userManager.CreateAsync(entity, password);
         return result.Succeeded;
     }

@@ -9,6 +9,6 @@ namespace Infrastructure.Services.Interfaces
         Task<bool> DeleteClientAsync(string id);
         Task<IEnumerable<ClientModel>> GetAllClientsAsync();
         Task<ClientModel?> GetClientByIdAsync(string id);
-        Task<ClientModel?> UpdateClientAsync(UpdateClientForm formData);
+        Task<bool> UpdateClientAsync(UpdateClientForm formData);
     }
 }

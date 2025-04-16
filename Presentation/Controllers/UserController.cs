@@ -45,7 +45,7 @@ public class UserController(IUserService userService) : ControllerBase
 
         var result = await _userService.UpdateUserAsync(formData);
 
-        return result == null ? BadRequest() : Ok(result);
+        return result ? Ok(result) : BadRequest();
     }
 
     [HttpDelete("{id}")]

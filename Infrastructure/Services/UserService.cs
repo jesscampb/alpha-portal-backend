@@ -30,22 +30,24 @@ public class UserService(IUserRepository userRepository) : IUserService
             return null;
         }
     }
-    public async Task<UserModel?> UpdateUserAsync(UpdateUserForm formData)
+    public async Task<bool> UpdateUserAsync(UpdateUserForm formData)
     {
-        if (formData == null) return null;
+        if (formData == null) return false;
 
         try
         {
-            var entity = UserFactory.ToEntity(formData);
-            await _userRepository.UpdateAsync(entity);
+            var userEntity = await _userRepository.GetAsync(x => x.Id == formData.Id, includes: x => x.Address!);
+            if (userEntity == null) return false;
 
-            var model = UserFactory.ToModel(entity);
-            return model;
+            UserFactory.ToEntity(formData, userEntity);
+
+            await _userRepository.UpdateAsync(userEntity);
+            return true;
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
-            return null;
+            return false;
         }
     }
     public async Task<bool> DeleteUserAsync(string id)
