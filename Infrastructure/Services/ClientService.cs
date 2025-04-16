@@ -1,4 +1,5 @@
-﻿using Infrastructure.Data.Repositories.Interfaces;
+﻿using Infrastructure.Data.Repositories;
+using Infrastructure.Data.Repositories.Interfaces;
 using Infrastructure.Dtos;
 using Infrastructure.Factories;
 using Infrastructure.Models;
@@ -32,22 +33,24 @@ public class ClientService(IClientRepository clientRepository) : IClientService
         }
     }
 
-    public async Task<ClientModel?> UpdateClientAsync(UpdateClientForm formData)
+    public async Task<bool> UpdateClientAsync(UpdateClientForm formData)
     {
-        if (formData == null) return null;
+        if (formData == null) return false;
 
         try
         {
-            var entity = ClientFactory.ToEntity(formData);
-            await _clientRepository.UpdateAsync(entity);
+            var clientEntity = await _clientRepository.GetAsync(x => x.Id == formData.Id, includes: x => x.Address);
+            if (clientEntity == null) return false;
 
-            var model = ClientFactory.ToModel(entity);
-            return model;
+            ClientFactory.ToEntity(formData, clientEntity);
+
+            await _clientRepository.UpdateAsync(clientEntity);
+            return true;
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
-            return null;
+            return false;
         }
     }
 

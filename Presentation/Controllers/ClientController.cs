@@ -45,7 +45,7 @@ public class ClientController(IClientService clientService) : ControllerBase
 
         var result = await _clientService.UpdateClientAsync(formData);
 
-        return result == null ? BadRequest() : Ok(result);
+        return result ? Ok(result) : BadRequest();
     }
 
     [HttpDelete("{id}")]
