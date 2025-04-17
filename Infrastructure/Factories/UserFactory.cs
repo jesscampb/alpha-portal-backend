@@ -64,9 +64,9 @@ public class UserFactory
             Email = entity.Email!,
             PhoneNumber = entity.PhoneNumber,
             JobTitle = entity.JobTitle,
-            StreetName = entity.Address?.StreetName ?? String.Empty,
-            PostalCode = entity.Address?.PostalCode ?? String.Empty,
-            City = entity.Address?.City ?? String.Empty,
+            StreetName = entity.Address?.StreetName ?? string.Empty,
+            PostalCode = entity.Address?.PostalCode ?? string.Empty,
+            City = entity.Address?.City ?? string.Empty,
         };
     }
 }
