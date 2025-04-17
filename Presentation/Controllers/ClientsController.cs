@@ -6,7 +6,7 @@ namespace Presentation.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ClientController(IClientService clientService) : ControllerBase
+public class ClientsController(IClientService clientService) : ControllerBase
 {
     private readonly IClientService _clientService = clientService;
 
