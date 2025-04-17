@@ -6,25 +6,25 @@ namespace Presentation.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UserController(IUserService userService) : ControllerBase
+public class ProjectsController(IProjectService projectService) : ControllerBase
 {
-    private readonly IUserService _userService = userService;
+    private readonly IProjectService _projectService = projectService;
 
     [HttpPost]
-    public async Task<IActionResult> Create(AddUserForm formData)
+    public async Task<IActionResult> Create(AddProjectForm formData)
     {
         if (!ModelState.IsValid)
             return BadRequest(formData);
 
-        var result = await _userService.CreateUserAsync(formData);
-
-        return result == null ? BadRequest() : Ok(result);
+        var result = await _projectService.CreateProjectAsync(formData);
+        
+        return result ? Ok(result) : BadRequest();
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(string id)
     {
-        var result = await _userService.GetUserByIdAsync(id);
+        var result = await _projectService.GetProjectByIdAsync(id);
 
         return result == null ? NotFound() : Ok(result);
     }
@@ -32,18 +32,18 @@ public class UserController(IUserService userService) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var result = await _userService.GetAllUsersAsync();
+        var result = await _projectService.GetAllProjectsAsync();
 
         return result == null ? NotFound() : Ok(result);
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update(UpdateUserForm formData)
+    public async Task<IActionResult> Update(UpdateProjectForm formData)
     {
         if (!ModelState.IsValid)
             return BadRequest(formData);
 
-        var result = await _userService.UpdateUserAsync(formData);
+        var result = await _projectService.UpdateProjectAsync(formData);
 
         return result ? Ok(result) : BadRequest();
     }
@@ -51,7 +51,7 @@ public class UserController(IUserService userService) : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
-        var result = await _userService.DeleteUserAsync(id);
+        var result = await _projectService.DeleteProjectAsync(id);
 
         return result ? Ok(result) : NotFound();
     }

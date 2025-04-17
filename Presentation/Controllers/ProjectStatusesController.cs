@@ -5,7 +5,7 @@ namespace Presentation.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProjectStatusController(IProjectStatusService projectStatusService) : ControllerBase
+public class ProjectStatusesController(IProjectStatusService projectStatusService) : ControllerBase
 {
     private readonly IProjectStatusService _projectStatusService = projectStatusService;
 
