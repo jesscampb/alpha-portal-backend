@@ -1,9 +1,11 @@
 ﻿using Infrastructure.Dtos;
 using Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.Extensions.Attributes;
 
 namespace Presentation.Controllers;
 
+[AdminApiKey]
 [Route("api/[controller]")]
 [ApiController]
 public class UsersController(IUserService userService) : ControllerBase
