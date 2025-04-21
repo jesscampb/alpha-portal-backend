@@ -36,7 +36,7 @@ builder.Services.AddCors(x =>
         .AllowCredentials();
     });
 
-    x.AddPolicy("AllowAll", x =>
+    x.AddPolicy("AllowFrontend", x =>
     {
         x.WithOrigins("http://localhost:5173")
         .AllowAnyMethod()
@@ -59,7 +59,7 @@ app.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "AlphaPortal
 app.UseRewriter(new RewriteOptions().AddRedirect("^$", "swagger"));
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll");
+app.UseCors("AllowFrontend");
 
 app.UseMiddleware<DefaultApiKeyMiddleware>();
 app.UseAuthentication();
