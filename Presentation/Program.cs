@@ -11,11 +11,6 @@ using Presentation.Extensions.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddOpenApi();
-builder.Services.AddSwaggerGen();
-builder.Services.AddMemoryCache();
-
 builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddIdentity<UserEntity, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
@@ -31,6 +26,30 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IProjectStatusService, ProjectStatusService>();
 
+builder.Services.AddCors(x =>
+{
+    x.AddPolicy("Strict", x =>
+    {
+        x.WithOrigins("http://localhost:5173")
+        .WithMethods("POST", "GET", "PUT", "DELETE")
+        .WithHeaders("Content-Type", "Authorization")
+        .AllowCredentials();
+    });
+
+    x.AddPolicy("AllowAll", x =>
+    {
+        x.WithOrigins("http://localhost:5173")
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    });
+});
+
+builder.Services.AddControllers();
+builder.Services.AddOpenApi();
+builder.Services.AddSwaggerGen();
+builder.Services.AddMemoryCache();
+
+
 var app = builder.Build();
 
 app.MapOpenApi();
@@ -40,7 +59,8 @@ app.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "AlphaPortal
 app.UseRewriter(new RewriteOptions().AddRedirect("^$", "swagger"));
 app.UseHttpsRedirection();
 
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+app.UseCors("AllowAll");
+
 app.UseMiddleware<DefaultApiKeyMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
