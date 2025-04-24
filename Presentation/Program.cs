@@ -61,7 +61,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowFrontend");
 
-app.UseMiddleware<DefaultApiKeyMiddleware>();
+//app.UseMiddleware<DefaultApiKeyMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
