@@ -12,6 +12,11 @@ public class ClientsController(IClientService clientService) : ControllerBase
 {
     private readonly IClientService _clientService = clientService;
 
+    /// <summary>
+    /// Creates a new client.
+    /// </summary>
+    /// <param name="formData">Client data to add.</param>
+    /// <returns>The newly created client.</returns>
     [HttpPost]
     public async Task<IActionResult> Create(AddClientForm formData)
     {
@@ -23,6 +28,11 @@ public class ClientsController(IClientService clientService) : ControllerBase
         return result == null ? BadRequest() : Ok(result);
     }
 
+    /// <summary>
+    /// Retrieves a client by its ID.
+    /// </summary>
+    /// <param name="id">The client's ID.</param>
+    /// <returns>The requested client.</returns>
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(string id)
     {
@@ -31,6 +41,11 @@ public class ClientsController(IClientService clientService) : ControllerBase
         return result == null ? NotFound() : Ok(result);
     }
 
+
+    /// <summary>
+    /// Retrieves all clients.
+    /// </summary>
+    /// <returns>List of all clients.</returns>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -39,6 +54,11 @@ public class ClientsController(IClientService clientService) : ControllerBase
         return result == null ? NotFound() : Ok(result);
     }
 
+    /// <summary>
+    /// Updates a client's details.
+    /// </summary>
+    /// <param name="formData">Updated client data.</param>
+    /// <returns>Status indicating success or failure of update operation.</returns>
     [HttpPut]
     public async Task<IActionResult> Update(UpdateClientForm formData)
     {
@@ -50,6 +70,11 @@ public class ClientsController(IClientService clientService) : ControllerBase
         return result ? Ok(result) : BadRequest();
     }
 
+    /// <summary>
+    /// Deletes a client by its ID.
+    /// </summary>
+    /// <param name="id">The client's ID.</param>
+    /// <returns>Status indicating success or failure of deletion.</returns>
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {

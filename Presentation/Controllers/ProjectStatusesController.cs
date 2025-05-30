@@ -9,6 +9,11 @@ public class ProjectStatusesController(IProjectStatusService projectStatusServic
 {
     private readonly IProjectStatusService _projectStatusService = projectStatusService;
 
+    /// <summary>
+    /// Retrieves a project status by its ID.
+    /// </summary>
+    /// <param name="id">The status ID.</param>
+    /// <returns>The requested project status.</returns>
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
@@ -17,6 +22,10 @@ public class ProjectStatusesController(IProjectStatusService projectStatusServic
         return result == null ? NotFound() : Ok(result);
     }
 
+    /// <summary>
+    /// Retrieves all project statuses.
+    /// </summary>
+    /// <returns>List of all project statuses.</returns>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
